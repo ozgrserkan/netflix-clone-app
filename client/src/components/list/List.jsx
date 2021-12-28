@@ -2,18 +2,25 @@ import "./list.scss";
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import ListItem from "../listItem.jsx/ListItem";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 const List = () => {
+  const [slideNumber, setSlideNumber] = useState(0);
   const listRef = useRef();
 
   const handleClick = (direction) => {
     let distance = listRef.current.getBoundingClientRect().x - 50;
-    if (direction === "left") {
+    if (direction === "left" && slideNumber > 0) {
+      setSlideNumber(slideNumber - 1);
       listRef.current.style.transform = `translateX(${230 + distance}px)`;
     }
-    console.log(distance);
+    if (direction === "right" && slideNumber < 5) {
+      setSlideNumber(slideNumber + 1);
+
+      listRef.current.style.transform = `translateX(${-230 + distance}px)`;
+    }
   };
+
   return (
     <div className="list">
       <span className="listTitle">Continue to Watch</span>
@@ -23,9 +30,6 @@ const List = () => {
           onClick={() => handleClick("left")}
         />
         <div className="container" ref={listRef}>
-          <ListItem />
-          <ListItem />
-          <ListItem />
           <ListItem />
           <ListItem />
           <ListItem />
