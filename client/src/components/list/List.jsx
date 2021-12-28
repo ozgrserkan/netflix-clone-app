@@ -6,9 +6,11 @@ import React, { useRef, useState } from "react";
 
 const List = () => {
   const [slideNumber, setSlideNumber] = useState(0);
+  const [isMoved, setIsMoved] = useState(false);
   const listRef = useRef();
 
   const handleClick = (direction) => {
+    setIsMoved(true);
     let distance = listRef.current.getBoundingClientRect().x - 50;
     if (direction === "left" && slideNumber > 0) {
       setSlideNumber(slideNumber - 1);
@@ -28,6 +30,7 @@ const List = () => {
         <ArrowBackIosOutlinedIcon
           className="sliderArrow left"
           onClick={() => handleClick("left")}
+          style={{ display: !isMoved && "none" }}
         />
         <div className="container" ref={listRef}>
           <ListItem />
