@@ -2,7 +2,8 @@ import "./list.scss";
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import ListItem from "../listItem.jsx/ListItem";
-import React, { useRef, useState } from "react";
+import React, { useRef} from "react";
+import { useState } from "react";
 
 const List = ({ list }) => {
   const [slideNumber, setSlideNumber] = useState(0);
