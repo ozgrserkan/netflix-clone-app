@@ -5,21 +5,43 @@ import Navbar from "./components/navbar/Navbar";
 import Watch from "./pages/watch/Watch";
 import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 
 const App = () => {
+  const user = true;
   return (
-    <Switch>
-      <Route path="/">
-        <Home />
-      </Route>
-      <Route path="/movies">
-        <Home />
-      </Route>
-      <Route path="/">
-        <Home />
-      </Route>
-    </Switch>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          {user ? <Home /> : <Redirect to="/register" />}
+        </Route>
+        <Route path="/register">
+          {!user ? <Register /> : <Redirect to="/" />}
+        </Route>
+        {user && (
+          <>
+            <Route path="/login">
+              {!user ? <Login /> : <Redirect to="/" />}
+            </Route>
+            <Route path="/movies">
+              <Home type="movies" />
+            </Route>
+            <Route path="/series">
+              <Home type="series" />
+            </Route>
+            <Route path="/watch">
+              <Watch />
+            </Route>
+          </>
+        )}
+      </Switch>
+    </Router>
   );
 };
 
