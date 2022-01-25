@@ -2,6 +2,7 @@ import React from "react";
 import "./featured.scss";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 const Featured = ({ type }) => {
   return (
     <div className="featured">
