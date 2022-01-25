@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./featured.scss";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
 const Featured = ({ type }) => {
+  const [content, setContent] = useState({});
+
+  useEffect(() => {
+    const getRandomContent = async () => {
+      try {
+        const res = await axios.get(`/movies/random?type=${type}`, {
+          headers: {
+            token:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDQxYjQwNjM1MTE1ZTAyZGFiOGFjYiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MzAzMjM1MSwiZXhwIjo2NDQyOTg0MzUxfQ.o9p6qYdzVbUrGh7xXEXmZqExBUwOJND_kVo70nr1Ckg",
+          },
+        });
+        setContent(res.data[0]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getRandomContent();
+  }, [type]);
   return (
     <div className="featured">
       {type && (
@@ -27,16 +46,10 @@ const Featured = ({ type }) => {
           </select>
         </div>
       )}
-      <img
-        src="https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        alt=""
-      />
+      <img src={content.img} alt="" />
       <div className="info">
-        <img src="https://www.firstcomicsnews.com/wp-content/uploads/2021/04/Gladiator-logo-600x257.png" />
-        <span className="desc">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores,
-          deserunt?
-        </span>
+        <img src={content.imgTitle} />
+        <span className="desc">{content.desc}</span>
         <div className="buttons">
           <button className="play">
             <PlayArrowIcon />
