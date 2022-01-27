@@ -11,16 +11,23 @@ import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import Login from "./pages/login/Login";
 
 function App() {
   return (
     <Router>
-      <Topbar />
-      <div className="container">
-        <Sidebar />
-        <Switch>
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Topbar />
+        <div className="container">
+          <Sidebar />
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/login">
+            <Login />
           </Route>
           <Route path="/users">
             <UserList />
@@ -40,8 +47,8 @@ function App() {
           <Route path="/newMovie">
             <NewProduct />
           </Route>
-        </Switch>
-      </div>
+        </div>
+      </Switch>
     </Router>
   );
 }
