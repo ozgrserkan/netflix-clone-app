@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Home from "./pages/home/Home";
 import "./app.scss";
 import Navbar from "./components/navbar/Navbar";
@@ -12,9 +12,10 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
+import { AuthContext } from "./authContext/AuthContext";
 
 const App = () => {
-  const user = true;
+  const { user } = useContext(AuthContext);
   return (
     <Router>
       <Switch>
